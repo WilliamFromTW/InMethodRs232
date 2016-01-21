@@ -1,0 +1,4 @@
+2016/01/21(1.0)
+--
+1. first version
+this is  RxTx Rs232 communication Library that can send & get message from rs232 device 
