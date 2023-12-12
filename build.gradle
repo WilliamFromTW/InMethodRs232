@@ -1,26 +1,22 @@
-apply plugin: 'java'
-compileJava.options.encoding = 'UTF-8'
-javadoc.options.encoding = 'UTF-8'  
+plugins {
+	id 'java'
+}
+
+java {
+	sourceCompatibility = '17'
+}
 
 archivesBaseName = 'InMethodRs232'
-version = '1.0'
-
-
-repositories {
-   mavenCentral()
+def getDate() {
+    return new Date().format('yyyyMMdd')
 }
-
-sourceSets {
-    main {
-        // where does the Java source code live?
-        java {
-            srcDir 'src'
-        }
-
-    }
-}
+version = '1.1_'+getDate()
 
 
 dependencies {
-   compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files('libs/nrjavaserial-5.2.1.jar')	
+    //implementation files('libs/RXTXcomm.jar')	
+    
 }
+
+sourceSets.main.java.srcDirs = ['src']

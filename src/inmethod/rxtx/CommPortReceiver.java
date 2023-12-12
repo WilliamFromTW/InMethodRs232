@@ -24,10 +24,8 @@ public class CommPortReceiver extends Thread {
                 // if stream is not bound in.read() method returns -1    
                 while ((byteReceive = in.read()) != -1) {
                     protocol.onReceive((byte) byteReceive);
-            
-                  
-
                 }
+               // System.out.println("ddd");
                 protocol.onStreamClosed();
 
                 // wait 10ms when stream is broken and check again    

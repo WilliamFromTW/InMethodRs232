@@ -32,11 +32,7 @@ public class ProtocolImpl implements Protocol {
             String message = getMessage(buffer, tail);
             System.out.println("RECEIVED MESSAGE: " + message);
 
-            if( message.indexOf("P3:")!=-1){
-                CommPortSender.send(getMessage("C"));
-                CommPortSender.send(getMessage("M"));
-                CommPortSender.send(getMessage("0\r\n"));
-            }  
+         
             tail = 0;
         }
     }

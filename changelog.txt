@@ -1,3 +1,16 @@
+v1.1_20231212
+--
+1. use nrjavaserial-5.2.1.jar  (fork from RXTXcomm.jar)
+https://github.com/NeuronRobotics/nrjavaserial/releases
+compatible java 8 , 11, 17
+
+v1.1-2023-12-07 
+--
+1. gradle 8.1.1 
+2. Eclipse (2023-12)
+3. check verion of  RXTXcomm.jar is 2.2
+4. only compatible java  8
+
 2016/01/21(1.0)
 --
 1. first version

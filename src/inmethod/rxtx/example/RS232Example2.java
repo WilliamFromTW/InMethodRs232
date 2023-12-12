@@ -1,12 +1,14 @@
 package inmethod.rxtx.example;
 
 
+
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.NoSuchPortException;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+import inmethod.rxtx.HexAndStringConverter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,10 +29,10 @@ public class RS232Example2
 	 CommPort commPort;
 	 
 	 //String COMPORT="COM18";
-	 int BaudRate=9600;
+	 int BaudRate=2400;
 	 int DATABITS=7;
 	 int STOPBITS=1;
-	 int PARITY=2;
+	 int PARITY=1;
 
 	 public void setBaudRate(int baudRate) {
 		BaudRate = baudRate;
@@ -98,17 +100,16 @@ public class RS232Example2
             	  System.out.println("PARITY="+PARITY);
             	  
             	  
-            	  serialPort.setSerialPortParams(BaudRate,DATABITS,STOPBITS,PARITY);
+//            	  serialPort.setSerialPortParams(BaudRate,DATABITS,STOPBITS,PARITY);
             	  
-//                serialPort.setSerialPortParams(2400,SerialPort.DATABITS_7,SerialPort.STOPBITS_1,SerialPort.PARITY_EVEN); AC-9000
+                serialPort.setSerialPortParams(2400,SerialPort.DATABITS_7,SerialPort.STOPBITS_1,SerialPort.PARITY_EVEN); //AC-9000
 //                serialPort.setSerialPortParams(4800,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE); EX-2100
 
                 InputStream in = serialPort.getInputStream();
                 OutputStream out = serialPort.getOutputStream();      
-               // (new Thread(new SerialWriter(out))).start();
-                
+                (new Thread(new SerialWriter(out))).start();
                 serialPort.addEventListener(new SerialReader(in));
-                //out.write("R\r\n".getBytes());
+                out.write("S\r\n".getBytes());
                 serialPort.notifyOnDataAvailable(true);
 
             }
@@ -151,8 +152,10 @@ public class RS232Example2
                 System.out.println("~serialEvent~"+new Date());
                 message=new String(buffer,0,len);
                 
-                System.out.print(new String(buffer,0,len));
-            }
+               // System.out.print(new String(buffer,0,len));
+                
+                System.out.print( HexAndStringConverter.convertHexByteToHexString(buffer));
+            }   		
             catch ( IOException e )
             {
                 e.printStackTrace();
@@ -162,35 +165,34 @@ public class RS232Example2
 
     }
 
-//    /** */
-//    public static class SerialWriter implements Runnable 
-//    {
-//        OutputStream out;
-//        
-//        public SerialWriter ( OutputStream out )
-//        {
-//            this.out = out;
-//        }
-//        
-//        public void run ()
-//        {
-//            try
-//            {                
-//                int c = 0;
-//                while ( ( c = System.in.read()) > -1 )
-//                {
-//                    //this.out.write(c);
-//                	String mValue = "R\r\n";
-//                    this.out.write(mValue.getBytes());
-//                }                
-//            }
-//            catch ( IOException e )
-//            {
-//                e.printStackTrace();
-//                System.exit(-1);
-//            }            
-//        }
-//    }
+    public static class SerialWriter implements Runnable 
+    {
+        OutputStream out;
+        
+        public SerialWriter ( OutputStream out )
+        {
+            this.out = out;
+        }
+        
+        public void run ()
+        {
+            try
+            {                
+                int c = 0;
+                while ( ( c = System.in.read()) > -1 )
+                {
+                    this.out.write(c);
+                	//String mValue = "S\r\n";
+                    //this.out.write(mValue.getBytes());
+                }                
+            }
+            catch ( IOException e )
+            {
+                e.printStackTrace();
+                System.exit(-1);
+            }            
+        }
+    }
     
 
     
