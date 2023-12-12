@@ -1,10 +1,13 @@
 How To Compile
-**Support Microsfot windows Only
+**Support Microsoft  windows Only
 
 1. j2se version 17(only)
 
 2. gradle 8.11 or above
    gradle jar => generate jar file
+   
+3.  use nrjavaserial-5.2.1.jar  (fork from RXTXcomm.jar)    
+https://github.com/NeuronRobotics/nrjavaserial/releases    
 
 How To Execute
 example:
